@@ -1,0 +1,38 @@
+public class App {
+    public static void main(String[] args) {
+
+        String[][] arr = {{"1", "2", "3", "4"}, {"2", "2", "2", "2"}, {"3", "3", "3", "3"}, {"4", "g", "4", "4"}};
+
+        try {
+            System.out.println(arraySum(arr));
+        } catch (MyArraySizeException | MyArrayDataException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static int arraySum(String[][] arr) throws MyArraySizeException, MyArrayDataException {
+
+        if (arr.length != 4) {
+            throw new MyArraySizeException("Длина массива не соответствует");
+        }
+
+        for (String[] array : arr) {
+            if (array.length != 4) {
+                throw new MyArraySizeException("Высота массива не соответствует");
+            }
+        }
+        int x = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                try {
+                    x += Integer.parseInt(arr[i][j]);
+                } catch (NumberFormatException e) {
+                    throw new MyArrayDataException("В ячейке: " + i + "," + j + " находится не число");
+                }
+            }
+        }
+
+        return x;
+    }
+}
